@@ -10,8 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "cosmetic": "^1.1.1",
-    "get-folder-size": "^1.0.0",
-    "rimraf": "^2.6.1",
+    "get-folder-size": "^2.0.0",
+    "rimraf": "^2.6.2",
     "termkit": "^1.4.1"
   },
   "bin": {
