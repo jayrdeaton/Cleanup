@@ -1,20 +1,19 @@
 #!/usr/bin/env node
-var program = require('commander');
-var chalk = require('chalk');
-var directory = require('./directory');
-var targetDirectory;
+let { consoleIO, program } = require('./src'),
+  { printError, readline } = consoleIO;
 
-program
-  .arguments('<dir>')
-  .option('-s, --size <size>', 'specify size in Megabytes')
-  .option('-f, --force', 'continue without confirmation')
-  .option('-v, --verbose', 'display more info')
-  // .option('-k, --keep [extensions]', 'Specify extensions to ignore')
-  .action((dir) => {
-    targetDirectory = dir;
-  })
-  .parse(process.argv);
-
-if (targetDirectory) {
-  directory.cleanup(targetDirectory, program);
+let run = async(args) => {
+  try {
+    await program.parse(args);
+  } catch(err) {
+    printError(err);
+  };
+  process.exit();
 };
+
+process.on('exit', () => {
+  readline.close();
+  process.stdin.destroy();
+});
+
+run(process.argv);
