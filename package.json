@@ -1,0 +1,21 @@
+{
+  "name": "cleanup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "commander": "^2.11.0",
+    "get-folder-size": "^1.0.0",
+    "prompt": "^1.0.0",
+    "rimraf": "^2.6.1"
+  },
+  "bin": {
+    "cleanup": "./index.js"
+  }
+}
