@@ -9,10 +9,10 @@
   "author": "Jay Deaton",
   "license": "ISC",
   "dependencies": {
-    "cosmetic": "^1.1.1",
-    "get-folder-size": "^2.0.0",
-    "rimraf": "^2.6.2",
-    "termkit": "^1.4.1"
+    "cosmetic": "^1.2.1",
+    "get-folder-size": "^2.0.1",
+    "rimraf": "^3.0.2",
+    "termkit": "^1.5.0"
   },
   "bin": {
     "cleanup": "./index.js"
