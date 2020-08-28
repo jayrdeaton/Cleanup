@@ -1,8 +1,4 @@
-let { promisify } = require('util'),
-  getFolderSize = require('get-folder-size');
+const { promisify } = require('util'),
+  getFolderSize = promisify(require('get-folder-size'))
 
-getFolderSize = promisify(getFolderSize);
-
-module.exports = async (dir) => {
-  return await getFolderSize(dir);
-};
+module.exports = (dir) => getFolderSize(dir)

@@ -1,5 +1,5 @@
-let printError = require('./printError'),
+const printError = require('./printError'),
   prompt = require('./prompt'),
-  readline = require('./readline');
+  readline = require('./readline')
 
-module.exports = { printError, prompt, readline };
+module.exports = { printError, prompt, readline }

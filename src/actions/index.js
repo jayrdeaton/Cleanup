@@ -1,3 +1,3 @@
-let cleanup = require('./cleanup');
+const cleanup = require('./cleanup')
 
-module.exports = { cleanup };
+module.exports = { cleanup }

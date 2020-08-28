@@ -1,5 +1,5 @@
-let actions = require('./actions'),
+const actions = require('./actions'),
   consoleIO = require('./consoleIO'),
-  program = require('./program');
+  program = require('./program')
 
-module.exports = { actions, consoleIO, program };
+module.exports = { actions, consoleIO, program }

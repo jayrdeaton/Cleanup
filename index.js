@@ -1,19 +1,19 @@
 #!/usr/bin/env node
-let { consoleIO, program } = require('./src'),
-  { printError, readline } = consoleIO;
+const { consoleIO, program } = require('./src'),
+  { printError, readline } = consoleIO
 
-let run = async(args) => {
+const run = async(args) => {
   try {
-    await program.parse(args);
+    await program.parse(args)
   } catch(err) {
-    printError(err);
-  };
-  process.exit();
-};
+    printError(err)
+  }
+  process.exit()
+}
 
 process.on('exit', () => {
-  readline.close();
-  process.stdin.destroy();
-});
+  readline.close()
+  process.stdin.destroy()
+})
 
-run(process.argv);
+run(process.argv)

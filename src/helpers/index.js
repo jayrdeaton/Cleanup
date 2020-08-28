@@ -1,6 +1,6 @@
-let deleteItems = require('./deleteItems'),
+const deleteItems = require('./deleteItems'),
   getDeletes = require('./getDeletes'),
   getItems = require('./getItems'),
-  getSize = require('./getSize');
+  getSize = require('./getSize')
 
-module.exports = { deleteItems, getDeletes, getItems, getSize };
+module.exports = { deleteItems, getDeletes, getItems, getSize }
