@@ -11,6 +11,7 @@
   "dependencies": {
     "cosmetic": "^1.2.1",
     "ffmetadata": "^1.6.0",
+    "ffmpeg": "^0.0.4",
     "get-folder-size": "^2.0.1",
     "rimraf": "^3.0.2",
     "termkit": "^1.7.1"
