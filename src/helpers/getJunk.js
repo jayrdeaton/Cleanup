@@ -1,5 +1,6 @@
 const { basename, extname } = require('path'),
-  getSize = require('./getSize')
+  { promisify } = require('util'),
+  getSize = promisify(require('get-folder-size'))
 
 module.exports = async (items, { includes, excludes, extension, size, verbose }) => {
   let deletes = []
@@ -18,9 +19,8 @@ module.exports = async (items, { includes, excludes, extension, size, verbose })
 
     if (del) {
       deletes.push(item)
-      if (verbose) console.log(`matched ${item}`)
+      if (verbose) console.log(item)
     }
   }
-  if (verbose) console.log()
   return deletes
 }

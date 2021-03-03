@@ -1,43 +1,36 @@
 const cosmetic = require('cosmetic'),
   { resolve } = require('path'),
+  { promisify } = require('util'),
+  ffmetadata = require('ffmetadata'),
+  readMetadata = promisify(ffmetadata.read),
+  writeMetadata = promisify(ffmetadata.write),
   { prompt } = require('../consoleIO'),
-  { deleteItems, getDeletes, getItems, getMetadata, writeMetadata } = require('../helpers'),
+  { getItems } = require('../helpers'),
   CLEANUP = cosmetic.magenta('cleanup')
 
 module.exports = async (options) => {
-  let { dir } = options
+  let { dir, force, verbose } = options
   dir = resolve(dir || '.')
-
+  console.log(`${CLEANUP} metadata in ${dir}`)
   const items = await getItems(dir)
+  const clean = []
   for (const item of items) try {
-    const data = await getMetadata(item)
-    if (data.comment || data.title) await writeMetadata(item, Object.assign(data, { comment: '', title: '' }))
-  } catch (err) {
-    console.log('error', err)
+    const data = await readMetadata(item)
+    if (data.comment || data.title) {
+      clean.push({ item, data })
+      if (verbose) console.log(item)
+    }
+  } catch (err) {}
+  if (clean.length === 0) return console.log(`no items to ${CLEANUP}`)
+  if (!force) {
+    const confirm = await prompt(`${CLEANUP} metadata from ${clean.length === 1 ? 'this' : 'these'} ${clean.length} ${clean.length === 1 ? 'item' : 'items'}? (Y/n) `)
+    if (confirm.toLowerCase() !== 'y') return console.log(`${CLEANUP} aborted`)
   }
-
-  // if (options.extension && !options.extension.startsWith('.')) options.extension = `.${options.extension}`
-  // const { force, includes, excludes, extension, size, verbose } = options
-  // const dir = resolve(options.dir || '.')
-  // if (!includes && !excludes && !extension && !size) return console.log(`${CLEANUP} requires at least one condition (includes, excludes, extension, size)`)
-  //
-  // console.log(`${CLEANUP} ${dir}`)
-  //
-  // if (includes) console.log(`items with name including ${includes}`)
-  // if (excludes) console.log(`items with name excluding ${excludes}`)
-  // if (extension) console.log(`files with extension ${extension}`)
-  // if (size) console.log(`items smaller than ${size} MB`)
-  //
-  // console.log()
-  //
-  // const items = await getItems(dir, options)
-  // const deletes = await getDeletes(items, options)
-  //
-  // if (deletes.length === 0) return console.log(`no items to ${CLEANUP}`)
-  //
-  // if (!force) {
-  //   const confirm = await prompt(`are you sure you want to delete these ${deletes.length} items? (Y/n) `)
-  //   if (confirm.toLowerCase() !== 'y') return console.log(`${CLEANUP} aborted`)
-  // }
-  // await deleteItems(deletes, verbose)
+  for (const { item, data } of clean) try {
+    await writeMetadata(item, Object.assign(data, { title: '', comment: '' }))
+    if (verbose) console.log(`cleaned ${item}`)
+  } catch (err) {
+    console.log(`error cleaning ${item} ${err}`)
+  }
+  console.log(`finished ${CLEANUP}`)
 }

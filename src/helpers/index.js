@@ -1,15 +1,9 @@
-const deleteItems = require('./deleteItems'),
-  getDeletes = require('./getDeletes'),
+const getJunk = require('./getJunk'),
   getItems = require('./getItems'),
-  getMetadata = require('./getMetadata'),
-  getSize = require('./getSize'),
-  writeMetadata = require('./writeMetadata')
+  getSize = require('./getSize')
 
 module.exports = {
-  deleteItems,
-  getDeletes,
+  getJunk,
   getItems,
-  getMetadata,
-  getSize,
-  writeMetadata
+  getSize
 }
