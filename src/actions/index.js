@@ -1,4 +1,4 @@
-const files = require('./files'),
+const junk = require('./junk'),
   metadata = require('./metadata')
 
-module.exports = { files, metadata }
+module.exports = { junk, metadata }

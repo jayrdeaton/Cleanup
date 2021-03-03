@@ -1,11 +1,11 @@
 const { command, option } = require('termkit'),
-  { files, metadata } = require('../actions')
+  { junk, metadata } = require('../actions')
 
-const program = command('cleanup', '[dir]')
+const program = command('cleanup')
   .version(process.env.npm_package_version)
   .description('A cli for cleaning up files and directories given criteria.  \nThis could potentially be dangerous if you don\'t know what you are doing or aren\'t careful.  \n\nUSE AT YOUR OWN RISK!  \nYOU HAVE BEEN WARNED!')
   .commands([
-    command('files')
+    command('junk', '[dir]')
       .option('i', 'includes', '<str>', 'Delete items with names that include a given string')
       .option('e', 'excludes', '<str>', 'Delete items with names that exclude a given string')
       .option(null, 'extension', '<str>', 'Delete files with a given extension')
@@ -13,8 +13,8 @@ const program = command('cleanup', '[dir]')
       // .option('R', 'recursive', null, 'Scan directories recursively')
       .option('v', 'verbose', null, 'Display more info')
       .option(null, 'force', null, 'Forego confirmation')
-      .action(files),
-    command('metadata')
+      .action(junk),
+    command('metadata', '[dir]')
       .action(metadata)
   ])
 

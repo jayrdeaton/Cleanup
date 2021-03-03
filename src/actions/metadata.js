@@ -5,7 +5,7 @@ const cosmetic = require('cosmetic'),
   CLEANUP = cosmetic.magenta('cleanup')
 
 module.exports = async (options) => {
-  let { _parents: { cleanup: { dir } } } = options
+  let { dir } = options
   dir = resolve(dir || '.')
 
   const items = await getItems(dir)
