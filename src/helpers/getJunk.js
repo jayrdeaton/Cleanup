@@ -2,12 +2,13 @@ const { basename, extname } = require('path'),
   { promisify } = require('util'),
   getSize = promisify(require('get-folder-size'))
 
-module.exports = async (items, { includes, excludes, extension, size, verbose }) => {
+module.exports = async (items, { includes, excludes, extension, size, verbose }, counter) => {
   let deletes = []
   let i = 1
   if (size) size = size * 1024 * 1024
 
   for (const item of items) {
+    if (counter) counter.up()
     const name = basename(item)
     const item_size = size ? await getSize(item) : null
 
@@ -19,7 +20,10 @@ module.exports = async (items, { includes, excludes, extension, size, verbose })
 
     if (del) {
       deletes.push(item)
-      if (verbose) console.log(item)
+      if (verbose) {
+        process.stdout.clearLine()
+        console.log(item)
+      }
     }
   }
   return deletes

@@ -4,19 +4,26 @@ const { promisify } = require('util'),
   readdir = promisify(fs.readdir),
   isDirectory = require('./isDirectory')
 
-const getItems = async (dir, options) => {
-  const { recursive } = options || {}
-  let dirs = []
-  let items = await readdir(dir)
-  for (let item of items) {
-    item = join(dir, item)
-    if (recursive && await isDirectory(item)) {
-      const sub = await getItems(item, options)
-      dirs.push(...sub)
+const getItems = async (dir, options, counter) => {
+  try {
+    const { recursive } = options || {}
+    let dirs = []
+    let items = await readdir(dir)
+    for (let item of items) {
+      item = join(dir, item)
+      if (recursive && await isDirectory(item)) {
+        const sub = await getItems(item, options, counter)
+        dirs.push(...sub)
+      }
+      if (counter) counter.up()
+      dirs.push(item)
     }
-    dirs.push(item)
+    return dirs
+  } catch (err) {
+    process.stdout.clearLine()
+    console.log(`error getting files in ${dir}`)
+    return []
   }
-  return dirs
 }
 
 module.exports = getItems
