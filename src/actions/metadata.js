@@ -12,7 +12,7 @@ module.exports = async (options) => {
   let { dir, force, verbose } = options
   dir = resolve(dir || '.')
   console.log(`${CLEANUP} metadata in ${dir}`)
-  const items = await getItems(dir)
+  const items = await getItems(dir, options)
   const clean = []
   for (const item of items) try {
     const data = await readMetadata(item)

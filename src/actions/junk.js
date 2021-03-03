@@ -7,7 +7,7 @@ const cosmetic = require('cosmetic'),
   rimraf = promisify(require('rimraf'))
 
 module.exports = async (options) => {
-  let { dir, force, includes, excludes, extension, size, verbose } = options
+  let { dir, force, includes, excludes, extension, recursive, size, verbose } = options
   dir = resolve(dir || '.')
   if (extension && !extension.startsWith('.')) extension = `.${extension}`
   if (!includes && !excludes && !extension && !size) return console.log(`${CLEANUP} requires at least one condition (includes, excludes, extension, size)`)
@@ -19,7 +19,7 @@ module.exports = async (options) => {
   if (extension) console.log(`files with extension ${extension}`)
   if (size) console.log(`items smaller than ${size} MB`)
 
-  const items = await getItems(dir, options)
+  const items = await getItems(dir, { directories: true, recursive })
   const clean = await getJunk(items, options)
 
   if (clean.length === 0) return console.log(`no items to ${CLEANUP}`)
@@ -29,7 +29,7 @@ module.exports = async (options) => {
     if (confirm.toLowerCase() !== 'y') return console.log(`${CLEANUP} aborted`)
   }
   for (let item of clean) {
-    await rimraf(item);
+    await rimraf(item)
     if (verbose) console.log(`deleted ${item}`)
   }
   console.log(`finished ${CLEANUP}`)

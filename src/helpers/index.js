@@ -1,9 +1,9 @@
 const getJunk = require('./getJunk'),
   getItems = require('./getItems'),
-  getSize = require('./getSize')
+  isDirectory = require('./isDirectory')
 
 module.exports = {
   getJunk,
   getItems,
-  getSize
+  isDirectory
 }
