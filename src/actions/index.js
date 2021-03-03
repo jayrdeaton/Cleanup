@@ -1,3 +1,4 @@
-const cleanup = require('./cleanup')
+const files = require('./files'),
+  titles = require('./titles')
 
-module.exports = { cleanup }
+module.exports = { files, titles }

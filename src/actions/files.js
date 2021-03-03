@@ -5,9 +5,9 @@ const cosmetic = require('cosmetic'),
   CLEANUP = cosmetic.magenta('cleanup')
 
 module.exports = async (options) => {
-  if (options.extension && !options.extension.startsWith('.')) options.extension = `.${options.extension}`
-  const { force, includes, excludes, extension, size, verbose } = options
-  const dir = resolve(options.dir || '.')
+  let { force, includes, excludes, extension, size, verbose, _parents: { cleanup: { dir } } } = options
+  dir = resolve(dir || '.')
+  if (extension && !extension.startsWith('.')) extension = `.${extension}`
   if (!includes && !excludes && !extension && !size) return console.log(`${CLEANUP} requires at least one condition (includes, excludes, extension, size)`)
 
   console.log(`${CLEANUP} ${dir}`)

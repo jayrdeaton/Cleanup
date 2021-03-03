@@ -1,6 +1,15 @@
 const deleteItems = require('./deleteItems'),
   getDeletes = require('./getDeletes'),
   getItems = require('./getItems'),
-  getSize = require('./getSize')
+  getMetadata = require('./getMetadata'),
+  getSize = require('./getSize'),
+  writeMetadata = require('./writeMetadata')
 
-module.exports = { deleteItems, getDeletes, getItems, getSize }
+module.exports = {
+  deleteItems,
+  getDeletes,
+  getItems,
+  getMetadata,
+  getSize,
+  writeMetadata
+}
