@@ -1,4 +1,4 @@
 const files = require('./files'),
-  titles = require('./titles')
+  metadata = require('./metadata')
 
-module.exports = { files, titles }
+module.exports = { files, metadata }

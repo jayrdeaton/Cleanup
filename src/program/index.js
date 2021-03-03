@@ -1,5 +1,5 @@
 const { command, option } = require('termkit'),
-  { files, titles } = require('../actions')
+  { files, metadata } = require('../actions')
 
 const program = command('cleanup', '[dir]')
   .version(process.env.npm_package_version)
@@ -14,8 +14,8 @@ const program = command('cleanup', '[dir]')
       .option('v', 'verbose', null, 'Display more info')
       .option(null, 'force', null, 'Forego confirmation')
       .action(files),
-    command('titles')
-      .action(titles)
+    command('metadata')
+      .action(metadata)
   ])
 
 module.exports = program
