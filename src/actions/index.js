@@ -1,4 +1,5 @@
-const junk = require('./junk'),
-  metadata = require('./metadata')
-
-module.exports = { junk, metadata }
+module.exports = {
+  hidden: require('./hidden'),
+  junk: require('./junk'),
+  metadata: require('./metadata')
+}
